@@ -5,11 +5,30 @@
       <AppNav />
       <section class='main'>
         <article class='listFood'>
-
+          <ProductItem 
+             v-for='item in items' :key='item.id'
+            :id="item.id"
+            :name="item.name"
+            :price="item.price"
+            :stock="item.stock"
+            :image="host + item.imgLocation"
+          />
         </article>
         
         <section class='listOrder'>
-
+          <div class="noOrder" id="noOrder">
+            <div class="icon">
+              <img src="@/assets/icon/food-and-restaurant.png">
+            </div>
+            
+            <div class="title">
+              Your cart is empty
+            </div>
+            
+            <div class="command">
+              Please add some items from the menu
+            </div>
+          </div>
         </section>
       </section>
     </main>
@@ -19,12 +38,31 @@
 <script>
 import AppHeader from './components/Header'
 import AppNav from './components/Nav'
+import ProductItem from './components/ProductItem'
+import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppNav
+    AppNav,
+    ProductItem
+  },
+  data (){
+    return {
+      items: null,
+      host: 'http://localhost/'
+    }
+  },
+  mounted () {
+    axios.get('http://localhost:3000/product')
+      .then(res => {
+        const list = res.data.values
+        this.items = list
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>
@@ -63,5 +101,21 @@ export default {
     width: 30%;
     height: 100%;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  }
+
+  .listOrder .noOrder{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .noOrder .title{
+    font-weight: bold;
+    font-size: 15pt;
+  }
+
+  .noOrder .command{
+    color: #CECECE;
   }
 </style>
