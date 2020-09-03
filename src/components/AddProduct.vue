@@ -20,21 +20,28 @@
         <div class="item">  
           <div class="title">Name</div>
           <div class="action">
-            <input type="text" name="addProductName" id="addProductName">
+            <input type="text" v-model="name">
           </div>
         </div>
 
         <div class="item">
           <div class="title">Image</div>
           <div class="action">
-            <input type="text" name="addProductImage" id="addProductImage">
+            <input type="text" v-model="image">
           </div>
         </div>
 
         <div class="item">
           <div class="title">Price</div>
           <div class="action">
-            <input type="text" name="addProductPrice" id="addProductPrice" style="width: 80%;">
+            <input type="text" style="width: 80%;" v-model="price">
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="title">Stock</div>
+          <div class="action">
+            <input type="text" style="width: 60%;" v-model="stock">
           </div>
         </div>
 
@@ -43,12 +50,11 @@
           <div class="action">
             <div class="dropdown" style="width: 60%;">
               <div class="header">
-                <div class="value">Category</div>
+                <div class="value">{{ category }}</div>
                 <div class="icon"><img src="@/assets/icon/Polygon.png"></div>
               </div>
               <div class="list">
-                <div class="item">Food</div>
-                <div class="item">Drink</div>
+                <div class="item" v-for="cat in categorys" :key="cat.id" @click="selectCat(cat.category)">{{ cat.category }}</div>
               </div>
             </div>
           </div>
@@ -58,13 +64,15 @@
 
       <div class="footer">
         <button style="background-color: #F24F8A;">Cancel</button>
-        <button style="background-color: #57CAD5;">Add</button>
+        <button style="background-color: #57CAD5;" @click="addProduct()">Add</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'AddProduct',
   props: {
@@ -73,6 +81,69 @@ export default {
     },
     model: {
       type: Boolean
+    }
+  },
+  data () {
+    return {
+      categorys: [],
+      category: 'Category',
+      name: '',
+      image: '',
+      price: '',
+      stock: '',
+    }
+  },
+  mounted() {
+    axios.get(process.env.VUE_APP_API + '/category')
+      .then(res => {
+        const list = res.data.values
+        this.categorys = list
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  methods: {
+    selectCat(selectCat){
+      this.category = selectCat
+    },
+    addProduct(){
+      if (!(this.category === 'Category')) {
+        const bodyFormData = new FormData()
+        bodyFormData.append('name', this.name)
+        bodyFormData.append('price', this.price)
+        bodyFormData.append('stock', this.stock)
+        bodyFormData.append('category', this.category)
+        bodyFormData.append('imgLocation', this.image)
+
+        axios.post(process.env.VUE_APP_API + '/product', {
+          name: this.name,
+          price: this.price,
+          stock: this.stock,
+          category: this.category,
+          imgLocation: this.image
+        })
+        .then(res => {
+          const success = res.data.success
+          if (success) {
+            const newProduct = {
+              id: (parseInt(this.$store.state.products[0].id) + 1).toString(),
+              name: this.name,
+              price: parseInt(this.price),
+              stock: parseInt(this.stock),
+              category: this.category,
+              imgLocation: this.image
+            }
+
+            this.$store.dispatch('addProduct', newProduct)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      } else {
+        console.log('kamu belum memilih category')
+      }
     }
   }
 }
@@ -93,7 +164,7 @@ export default {
   .modal .addItem{
     justify-self: center;
     width: 35%;
-    height: 60%;
+    height: 65%;
     background-color: white;
     border-radius: 10px;
     margin-left: auto;
@@ -203,5 +274,6 @@ export default {
     padding: 10px;
     width: 100px;
     border-radius: 10px;
+    cursor: pointer;
   }
 </style>

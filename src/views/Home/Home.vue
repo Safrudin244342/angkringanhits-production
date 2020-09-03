@@ -7,7 +7,7 @@
         :name="item.name"
         :price="item.price"
         :stock="item.stock"
-          :image="host + item.imgLocation"
+        :image="host + item.imgLocation"
       />
     </article>
         
@@ -82,7 +82,6 @@ export default {
   },
   data (){
     return {
-      items: null,
       host: 'http://localhost/',
       pay: 0
     }
@@ -90,13 +89,16 @@ export default {
   computed: {
     cart() {
       return this.$store.state.cart
+    },
+    items() {
+      return this.$store.getters.getProducts
     }
   },
   mounted () {
     axios.get(process.env.VUE_APP_API + '/product')
       .then(res => {
         const list = res.data.values
-        this.items = list
+        this.$store.dispatch('changeProducts', list)
       })
       .catch(err => {
         console.log(err)

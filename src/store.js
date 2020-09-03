@@ -5,7 +5,8 @@ vue.use(vuex)
 
 const store = new vuex.Store({
   state: {
-    cart: []
+    cart: [],
+    products: []
   },
   mutations: {
     addOrder(state, newOrder) {
@@ -24,6 +25,12 @@ const store = new vuex.Store({
       const index = state.cart.findIndex(value => value.id === orderId)
       state.cart[index].estimasi = state.cart[index].estimasi - 1
       state.cart[index].pay = state.cart[index].estimasi * state.cart[index].price
+    },
+    changeProducts(state, newProducts){
+      state.products = newProducts
+    },
+    addProduct(state, newProduct){
+      state.products.unshift(newProduct)
     }
   },
   actions: {
@@ -38,10 +45,17 @@ const store = new vuex.Store({
     },
     downEstimasi({ commit }, id){
       commit('downEstimasi', id)
+    },
+    changeProducts({ commit }, newProducts){
+      commit('changeProducts', newProducts)
+    },
+    addProduct({ commit }, newProduct){
+      commit('addProduct', newProduct)
     }
   },
   getters: {
-    getCart: state => state.cart
+    getCart: state => state.cart,
+    getProducts: state => state.products
   }
 })
 
