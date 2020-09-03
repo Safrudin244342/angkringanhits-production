@@ -55,27 +55,19 @@ export default {
     pay: {
       type: Number,
       required: true
-    },
-    cart: {
-      type: Array,
-      required: true
     }
   }, methods: {
     addEstimasi () {
-      const orderId = this.cart.findIndex(value => value.id === this.id)
       this.newEstimasi++
       this.newPay = this.price * this.newEstimasi
-      this.cart[orderId].estimasi = this.newEstimasi
-      this.cart[orderId].pay = this.newPay
+      this.$store.dispatch('upEstimasi', this.id)
     },
 
     downEstimasi () {
       if (this.newEstimasi > 1) {
-        const orderId = this.cart.findIndex(value => value.id === this.id)
         this.newEstimasi--
         this.newPay = this.price * this.newEstimasi
-        this.cart[orderId].estimasi = this.newEstimasi
-        this.cart[orderId].pay = this.newPay
+        this.$store.dispatch('downEstimasi', this.id)
       }
     }
   }, data () {

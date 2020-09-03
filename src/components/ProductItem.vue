@@ -38,10 +38,6 @@ export default {
     image: {
       type: String,
       required: true
-    },
-    cart: {
-      type: Array,
-      required: true
     }
   },
   data () {
@@ -51,7 +47,7 @@ export default {
   },
   methods: {
     addCart(id, name, price, stock, image){
-      if (this.cart.filter(value => value.id == id).length == 0) {
+      if (this.$store.getters.getCart.filter(value => value.id == id).length == 0) {
         const estimasi = 1
         const newOrder = {
           id,
@@ -63,14 +59,10 @@ export default {
           pay: price * estimasi
         }
       
-        this.cart.push(newOrder)
+        this.$store.dispatch('addOrder', newOrder)
         this.select = !this.select
       } else {
-        for (let i = 0; i < this.cart.length; i++){
-          if (this.cart[i].id == id){
-            this.cart.splice(i, 1)
-          }
-        }
+        this.$store.dispatch('removeOrder', id)
 
         this.select = !this.select
       }

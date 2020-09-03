@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <AppHeader 
-      :cart="cart"
-    />
+    <AppHeader />
 
     <main>
       <AppNav />
@@ -15,7 +13,6 @@
             :price="item.price"
             :stock="item.stock"
             :image="host + item.imgLocation"
-            :cart="cart"
           />
         </article>
         
@@ -47,7 +44,6 @@
                 :image="item.image"
                 :estimasi="item.estimasi"
                 :pay="item.pay"
-                :cart="cart"
               />     
             </div>
             
@@ -99,8 +95,12 @@ export default {
     return {
       items: null,
       host: 'http://localhost/',
-      cart: [],
       pay: 0
+    }
+  },
+  computed: {
+    cart() {
+      return this.$store.state.cart
     }
   },
   mounted () {
@@ -114,7 +114,7 @@ export default {
       })
   },
   updated () {
-    this.pay = this.cart.reduce((a, b) => a + (b['pay'] || 0), 0)
+    this.pay = this.$store.getters.getCart.reduce((a, b) => a + (b['pay'] || 0), 0)
   }
 }
 </script>

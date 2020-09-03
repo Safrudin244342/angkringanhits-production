@@ -36,10 +36,9 @@
 <script>
 export default {
   name: 'header', 
-  props: {
-    cart: {
-      type: Array,
-      required: true
+  computed: {
+    cart() {
+      return this.$store.state.cart
     }
   }
 }
