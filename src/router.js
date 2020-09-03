@@ -3,19 +3,19 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import app from './App'
 import home from './views/Home/Home'
+import history from './views/History/History'
 
 const mainRouter = new VueRouter({
   routes: [
     {
       path: '/',
       name: 'app',
-      component: app,
-    },{
-      path: '/home',
-      name: 'home',
       component: home,
+    },{
+      path: '/history',
+      name: 'home',
+      component: history,
     }
   ],
   mode: 'history'
