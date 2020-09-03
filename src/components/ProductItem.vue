@@ -17,7 +17,7 @@ export default {
   name: 'ProductItem',
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     },
     name: {
@@ -54,12 +54,12 @@ export default {
   }
 
   .item .img{
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     position: relative;
   }
 
   .item .img img{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     width: 250px;
     height: 200px;
   }
