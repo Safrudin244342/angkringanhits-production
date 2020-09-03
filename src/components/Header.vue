@@ -27,7 +27,7 @@
     <div class="cartHeader">
       Cart
       <div class="order" id="countOrder">
-        0
+        {{ cart.length }}
       </div>
     </div>
   </header>
@@ -35,7 +35,13 @@
 
 <script>
 export default {
-  name: 'header',  
+  name: 'header', 
+  props: {
+    cart: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 

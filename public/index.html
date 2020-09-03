@@ -7,8 +7,17 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <style>
+      @font-face {
+        font-family: 'Airbnb Cereal App Book';
+        font-style: normal;
+        font-weight: normal;
+        src: local('Airbnb Cereal App Book'), url('AirbnbCerealBook.woff') format('woff');
+      }
+
       *{
         margin: 0px;
+        font-family: 'Airbnb Cereal App Book';
+        font-style: bold;
       }
     </style>
   </head>

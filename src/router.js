@@ -9,13 +9,16 @@ import home from './views/Home/Home'
 const mainRouter = new VueRouter({
   routes: [
     {
-      path: '/app',
+      path: '/',
+      name: 'app',
       component: app,
     },{
       path: '/home',
+      name: 'home',
       component: home,
     }
-  ]
+  ],
+  mode: 'history'
 })
 
 export default mainRouter

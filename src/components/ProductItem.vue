@@ -1,7 +1,10 @@
 <template>
-  <div class='item'>
+  <div class='item' @click="addCart(id, name, price, stock, image)">
     <div class="img">
       <img :src=image>
+      <div class="select" v-if="select">
+        <img src="@/assets/icon/tick (1).png">
+      </div>
     </div>
     <div class="name">
       {{ name }}
@@ -35,6 +38,42 @@ export default {
     image: {
       type: String,
       required: true
+    },
+    cart: {
+      type: Array,
+      required: true
+    }
+  },
+  data () {
+    return {
+      select: false
+    }
+  },
+  methods: {
+    addCart(id, name, price, stock, image){
+      if (this.cart.filter(value => value.id == id).length == 0) {
+        const estimasi = 1
+        const newOrder = {
+          id,
+          name,
+          price,
+          stock,
+          image,
+          estimasi,
+          pay: price * estimasi
+        }
+      
+        this.cart.push(newOrder)
+        this.select = !this.select
+      } else {
+        for (let i = 0; i < this.cart.length; i++){
+          if (this.cart[i].id == id){
+            this.cart.splice(i, 1)
+          }
+        }
+
+        this.select = !this.select
+      }
     }
   }
 }
