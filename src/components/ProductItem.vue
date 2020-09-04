@@ -10,7 +10,7 @@
       {{ name }}
     </div>
     <div class="price">
-      Rp. {{ price }}
+      Rp. {{ Rupiah(price) }}
     </div>
   </div>
 </template>

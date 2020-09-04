@@ -16,7 +16,7 @@
           <button @click="addEstimasi()">+</button>
         </div>
         <div class="price" id="itemOrderPrice${product.id}">
-          Rp. {{ newPay }}
+          Rp. {{ Rupiah(newPay) }}
         </div>
       </div>
     

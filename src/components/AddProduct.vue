@@ -63,7 +63,7 @@
       </div>
 
       <div class="footer">
-        <button style="background-color: #F24F8A;">Cancel</button>
+        <button style="background-color: #F24F8A;" @click="closeModel()">Cancel</button>
         <button style="background-color: #57CAD5;" @click="addProduct()">Add</button>
       </div>
     </div>
@@ -109,13 +109,6 @@ export default {
     },
     addProduct(){
       if (!(this.category === 'Category')) {
-        const bodyFormData = new FormData()
-        bodyFormData.append('name', this.name)
-        bodyFormData.append('price', this.price)
-        bodyFormData.append('stock', this.stock)
-        bodyFormData.append('category', this.category)
-        bodyFormData.append('imgLocation', this.image)
-
         axios.post(process.env.VUE_APP_API + '/product', {
           name: this.name,
           price: this.price,

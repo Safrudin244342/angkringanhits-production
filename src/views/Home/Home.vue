@@ -51,7 +51,7 @@
                 Total:
               </div>
               <div class="count" id="pay">
-                Rp. {{ pay }}
+                Rp. {{ Rupiah(pay) }}
               </div>
             </div>
             *Belum termasuk ppn
