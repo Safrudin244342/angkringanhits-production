@@ -94,6 +94,10 @@ export default {
     border-radius: 50px;
   }
 
+  .search {
+    cursor: pointer;
+  }
+
   @media screen and (max-width: 400px){
     header .mainHeader .title{
       font-size: 20px;

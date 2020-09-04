@@ -1,5 +1,5 @@
 <template>
-  <section class='main'>
+  <section class='main' :style="[modalCheckoutState ? { 'z-index':'2' }:{ 'z-index':'0' }]">
     <article class='listFood'>
       <ProductItem 
         v-for='item in items' :key='item.id'
@@ -58,13 +58,16 @@
           </div>
 
           <div class="action">
-            <button class="yes" onclick="Order.checkout()">Checkout</button>
+            <button class="yes" @click="showCheckout()">Checkout</button>
             <button class="no" onclick="Order.clear()">Cancel</button>
           </div>
         </div>
 
       </div>
-
+      <Checkout 
+        v-if="modalCheckoutState"
+        :closeModal="showCheckout"
+      />
     </section>
   </section>
 </template>
@@ -72,18 +75,21 @@
 <script>
 import ProductItem from '@/components/ProductItem'
 import OrderItem from '@/components/OrderItem'
+import Checkout from '@/components/Checkout'
 import axios from 'axios'
 
 export default {
   name: 'App',
   components: {
     ProductItem,
-    OrderItem
+    OrderItem,
+    Checkout
   },
   data (){
     return {
       host: 'http://localhost/',
-      pay: 0
+      pay: 0,
+      modalCheckoutState: false
     }
   },
   computed: {
@@ -106,6 +112,11 @@ export default {
   },
   updated () {
     this.pay = this.$store.getters.getCart.reduce((a, b) => a + (b['pay'] || 0), 0)
+  },
+  methods: {
+    showCheckout() {
+      this.modalCheckoutState = !this.modalCheckoutState
+    }
   }
 }
 </script>
@@ -116,6 +127,7 @@ export default {
     display: flex;
     margin-left: auto;
     flex: 1;
+    z-index: 0;
     justify-content: center;
   }
 
@@ -185,6 +197,10 @@ export default {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
+  }
+
+  .confirm button{
+    cursor: pointer;
   }
 
   .confirm .action button.yes{
