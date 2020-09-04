@@ -101,7 +101,25 @@ export default {
         orders: listOrder
       })
         .then(res => {
-          console.log(res)
+          const success = res.data.success
+
+          if (success){
+            const newNotif = {
+              message: 'Success',
+              status: 'success',
+              show: true
+            }
+            this.$store.dispatch('showNotif', newNotif)
+            this.$store.dispatch('cleanOrder')
+            this.closeModal()
+          } else {
+            const newNotif = {
+              message: res.data.errMsg,
+              status: 'error',
+              show: true
+            }
+            this.$store.dispatch('showNotif', newNotif)
+          }
         })
         .catch(err => {
           console.log(err)
@@ -147,6 +165,7 @@ export default {
     font-size: 20pt;
     font-weight: bold;
     background-color: white;
+    cursor: pointer;
   }
 
   .checkout .header .type{
@@ -197,6 +216,7 @@ export default {
     border-radius: 10px;
     color: white;
     font-size: 20pt;
+    cursor: pointer;
   }
 
   .checkout .footer .navigation button.yes{

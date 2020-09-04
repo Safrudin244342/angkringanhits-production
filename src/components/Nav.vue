@@ -47,6 +47,7 @@ export default {
 
 <style>
   aside{
+    z-index: 1;
     margin-top: 80px;
     padding: 8.8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);

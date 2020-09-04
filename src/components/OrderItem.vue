@@ -68,6 +68,8 @@ export default {
         this.newEstimasi--
         this.newPay = this.price * this.newEstimasi
         this.$store.dispatch('downEstimasi', this.id)
+      } else {
+        this.$store.dispatch('removeOrder', this.id)
       }
     }
   }, data () {

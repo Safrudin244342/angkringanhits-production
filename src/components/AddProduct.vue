@@ -118,6 +118,7 @@ export default {
         })
         .then(res => {
           const success = res.data.success
+
           if (success) {
             const newProduct = {
               id: (parseInt(this.$store.state.products[0].id) + 1).toString(),
@@ -129,13 +130,27 @@ export default {
             }
 
             this.$store.dispatch('addProduct', newProduct)
+          } else {
+            const newNotif = {
+              message: res.data.errMsg,
+              status: 'error',
+              show: true
+            }
+
+            this.$store.dispatch('showNotif', newNotif)
           }
         })
         .catch(err => {
           console.log(err)
         })
       } else {
-        console.log('kamu belum memilih category')
+        const newNotif = {
+          message: 'Category belum dipilih',
+          status: 'error',
+          show: true
+        }
+
+        this.$store.dispatch('showNotif', newNotif)
       }
     }
   }
@@ -186,6 +201,7 @@ export default {
     font-size: 20pt;
     font-weight: bold;
     background-color: white;
+    cursor: pointer;
   }
 
   .addItem .body{
@@ -221,6 +237,7 @@ export default {
     border: 0px;
     border-radius: 10px;
     height: 40px;
+    cursor: pointer;
   }
 
   .addItem .body .item .action .dropdown:hover .list{

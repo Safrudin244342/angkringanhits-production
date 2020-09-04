@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <div class='header'>
     <div class="mainHeader">
       <div class="menu" style="cursor: pointer;" onclick="showMenu()" id="btnMenu">
         <svg viewBox="0 0 24 24" width='30' height='30'>
@@ -30,7 +30,7 @@
         {{ cart.length }}
       </div>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
 </script>
 
 <style scoped>
-  header {
+  .header {
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -56,7 +56,7 @@ export default {
     background-color: white;
   }
 
-  header .mainHeader{
+  .header .mainHeader{
     flex: 1;
     align-items: center;
     padding: 20px;
@@ -66,16 +66,16 @@ export default {
     box-sizing: border-box;
   }
 
-  header .mainHeader .title{
+  .header .mainHeader .title{
     font-size: 30px;
     display: block;
   }
 
-  header .mainHeader .navigation .cart{
+  .header .mainHeader .navigation .cart{
     display: none;
   }
 
-  header .cartHeader{
+  .header .cartHeader{
     display: flex;
     margin-left: auto;
     align-items: center;
@@ -83,7 +83,7 @@ export default {
     justify-content: center;
   }
 
-  header .cartHeader .order{
+  .header .cartHeader .order{
     background-color: #57CAD5;
     width: 20x;
     text-align: center;
@@ -99,24 +99,24 @@ export default {
   }
 
   @media screen and (max-width: 400px){
-    header .mainHeader .title{
+    .header .mainHeader .title{
       font-size: 20px;
     }
 
-    header .cartHeader{
+    .header .cartHeader{
       display: none;
     }
 
-    header .mainHeader .navigation{
+    .header .mainHeader .navigation{
       display: flex;
       flex-direction: row;
     }
 
-    header .mainHeader .navigation .cart{
+    .header .mainHeader .navigation .cart{
       display: block;
     }
 
-    header .mainHeader .navigation img{
+    .header .mainHeader .navigation img{
       cursor: pointer;
       margin-right: 10px;
     }

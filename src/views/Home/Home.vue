@@ -59,7 +59,7 @@
 
           <div class="action">
             <button class="yes" @click="showCheckout()">Checkout</button>
-            <button class="no" onclick="Order.clear()">Cancel</button>
+            <button class="no" @click="cleanOrder()">Cancel</button>
           </div>
         </div>
 
@@ -116,6 +116,9 @@ export default {
   methods: {
     showCheckout() {
       this.modalCheckoutState = !this.modalCheckoutState
+    },
+    cleanOrder(){
+      this.$store.dispatch('cleanOrder')
     }
   }
 }

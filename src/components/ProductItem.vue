@@ -40,9 +40,9 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      select: false
+  computed: {
+    select() {
+      return this.$store.getters.getCart.some(value => value.id === this.id)
     }
   },
   methods: {
@@ -60,11 +60,8 @@ export default {
         }
       
         this.$store.dispatch('addOrder', newOrder)
-        this.select = !this.select
       } else {
         this.$store.dispatch('removeOrder', id)
-
-        this.select = !this.select
       }
     }
   }
