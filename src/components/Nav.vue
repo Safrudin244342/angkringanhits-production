@@ -2,14 +2,14 @@
   <div>
     <aside id="menu">
       <div class="buttonFood">
-        <a href="./">
+        <router-link to="/">
           <img src="@/assets/icon/fork.png">
-        </a>
+        </router-link>
       </div>
       <div class="buttonHistory">
-        <a href="./history.html">
+        <router-link to='/history'>
           <img src="@/assets/icon/clipboard.png">
-        </a>
+        </router-link>
       </div>
       <div class="buttonAdd" @click="addProduct()">
         <img src="@/assets/icon/add.png">
@@ -70,5 +70,21 @@ export default {
   aside img:hover{
     background-color: rgba(190, 195, 202, 0.3);
     border-radius: 10px;
+  }
+
+  @media screen and (max-width: 400px){
+    aside{
+        margin-top: 74px;
+        display: none;
+        z-index: 1;
+    }
+
+    aside img{
+        margin-top: 0px;
+    }
+
+    section{
+        margin-top: 74px;
+    }
   }
 </style>

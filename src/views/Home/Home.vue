@@ -225,4 +225,65 @@ export default {
     margin: 3px;
     background-color: #F24F8A;
   }
+
+  @media screen and (max-width: 400px){
+
+    main section .listFood{
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100%;
+    }
+
+    main section .listOrder{
+        display: none;
+        z-index: 1;
+        top: 0;
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    .listFood .item{
+        max-width: 270px;
+        max-height: 272px;
+    }
+
+    .listFood .item .img img{
+        width: 250px;
+        height: 200px;
+    }
+
+    .order .list{
+        color: black;
+        height: 60%;
+    }
+    
+    .order .list .item{
+        display: flex;
+        padding-top: 5px;
+        font-weight: bold;
+    }
+    
+    .order .list .item img{
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+    }
+
+    .order .list .detail .title{
+        font-size: 10pt;
+    }
+
+    .order .list .detail .navigation{
+        width: 220px;
+    }
+
+    .order .list .detail .navigation .action{
+        margin-top: 5px;
+    }
+
+    .order .list .detail .navigation .price{
+        margin-top: 10px;
+        font-size: 12pt;
+    }
+  }
 </style>
