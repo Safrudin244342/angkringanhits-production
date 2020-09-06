@@ -38,6 +38,10 @@ export default {
     removeNotif() {
       this.$store.dispatch('removeNotif')
     }
+  },
+  updated() {
+    const path = this.$router.history.current.path
+    this.$store.dispatch('changePath', path)
   }
 }
 </script>

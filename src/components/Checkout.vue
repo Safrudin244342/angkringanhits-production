@@ -13,13 +13,13 @@
           <div class="title">
             Checkout
           </div>
-          <div class="number">
+          <!-- <div class="number">
             Receipt no: #010410919
-          </div>
+          </div> -->
         </div>
 
         <div class="info">
-          Cashier: Nadia
+          Cashier: {{ cashier }}
         </div>
       </div>
 
@@ -77,6 +77,11 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      cashier: 'safrudin'
+    }
+  },
   computed: {
     carts() {
       return this.$store.getters.getCart
@@ -92,7 +97,7 @@ export default {
     saveCheckout() {
       let listOrder = this.carts.reduce((a, b) => a + ',' + (b['name'] || ''), '')
       listOrder = listOrder.substr(listOrder.indexOf(",") + 1)
-      const cashier = 'safrudin'
+      const cashier = this.cashier
       const amount = this.payAll
       
       axios.post(process.env.VUE_APP_API + '/history', {

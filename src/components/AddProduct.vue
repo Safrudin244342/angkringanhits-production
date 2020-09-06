@@ -130,6 +130,19 @@ export default {
             }
 
             this.$store.dispatch('addProduct', newProduct)
+
+            const newNotif = {
+              message: 'Success',
+              status: 'success',
+              show: true
+            }
+            this.$store.dispatch('showNotif', newNotif)
+
+            this.closeModel()
+            this.name = ''
+            this.price = ''
+            this.image = ''
+            this.stock = ''
           } else {
             const newNotif = {
               message: res.data.errMsg,

@@ -8,7 +8,7 @@
       </div>
   
       <div class="title">
-        Food Items
+        {{ path === '/' ? 'Food Items':'History' }}
       </div>
                 
       <div class="navigation">
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="cartHeader">
+    <div class="cartHeader" :style="[path === '/' ? {'display':'flex'}:{'display':'none'}]">
       Cart
       <div class="order" id="countOrder">
         {{ cart.length }}
@@ -39,6 +39,9 @@ export default {
   computed: {
     cart() {
       return this.$store.state.cart
+    },
+    path() {
+      return this.$store.getters.getPath
     }
   }
 }

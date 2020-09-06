@@ -11,7 +11,8 @@ const store = new vuex.Store({
       message: '',
       status: '',
       show: false
-    }
+    },
+    path: '/'
   },
   mutations: {
     addOrder(state, newOrder) {
@@ -49,6 +50,9 @@ const store = new vuex.Store({
         status: '',
         show: false
       }
+    },
+    changePath(state, newPath){
+      state.path = newPath
     }
   },
   actions: {
@@ -78,12 +82,16 @@ const store = new vuex.Store({
     },
     removeNotif({ commit }){
       commit('removeNotif')
+    },
+    changePath({ commit }, newPath){
+      commit('changePath', newPath)
     }
   },
   getters: {
     getCart: state => state.cart,
     getProducts: state => state.products,
-    getNotif: state => state.notif
+    getNotif: state => state.notif,
+    getPath: state => state.path
   }
 })
 
