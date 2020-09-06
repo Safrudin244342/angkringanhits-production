@@ -13,7 +13,11 @@
                 
       <div class="navigation">
         <div class="search">
-          <img src='@/assets/icon/magnifying-glass.png' width='24' height=24>
+          <div class='navSearch' v-if="stateSearch">
+            <input type='text' v-model="search">
+            <img src='@/assets/icon/magnifying-glass.png' width='24' height=24 @click="searchProduct()">
+          </div>
+          <img src='@/assets/icon/magnifying-glass.png' width='24' height=24 @click="showSearch()">
         </div>
 
         <div class="cart" id="btnOrder" onclick="showListOrder()">
@@ -34,6 +38,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'header', 
   computed: {
@@ -42,6 +48,28 @@ export default {
     },
     path() {
       return this.$store.getters.getPath
+    }
+  },
+  data () {
+    return {
+      stateSearch: false,
+      search: ''
+    }
+  },
+  methods: {
+    showSearch() {
+      this.stateSearch = !this.stateSearch
+    },
+    searchProduct() {
+      axios.get(process.env.VUE_APP_API + '/product/search?name=' + this.search)
+        .then(res => {
+          this.$store.dispatch('changeProducts', res.data.values)
+          this.stateSearch = false
+          this.search = ''
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
@@ -99,6 +127,27 @@ export default {
 
   .search {
     cursor: pointer;
+  }
+
+  .header .mainHeader .navigation .navSearch {
+    position: absolute;
+    top: 50px;
+    display: flex;
+    background-color: white;
+    align-items: center;
+    box-shadow: 0px 4px 8px 2px rgba(190, 195, 202, 0.3);
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  .header .mainHeader .navigation .navSearch input {
+    border: 1px;
+    box-sizing: border-box;
+    padding: 10px;
+    font-weight: bold;
+    border: 0px;
+    border-radius: 10px;
+    height: 40px;
   }
 
   @media screen and (max-width: 400px){
