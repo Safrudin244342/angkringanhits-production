@@ -1,7 +1,7 @@
 <template>
   <div class='header'>
     <div class="mainHeader">
-      <div class="menu" style="cursor: pointer;" onclick="showMenu()" id="btnMenu">
+      <div class="menu" style="cursor: pointer;" @click="showMenu()" id="btnMenu">
         <svg viewBox="0 0 24 24" width='30' height='30'>
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
         </svg>
@@ -23,13 +23,15 @@
         <div class="cart" id="btnOrder" onclick="showListOrder()">
           <img src='@/assets/icon/cart.png' width='24' height=24>
           <div id="countOrder" style="position: absolute; top: 50%; right: 20px; padding: 2px; background-color: #57CAD5; border-radius: 10px;">
-            0
+            {{ cart.length }}
           </div>
         </div>
       </div>
     </div>
     <div class="cartHeader" :style="[path === '/' || path === '/setting' ? {'display':'flex'}:{'display':'none'}]">
-      {{ path === '/' ? 'Cart':'Item' }}
+      <div class='title'>
+        {{ path === '/' ? 'Cart':'Item' }}
+      </div>
       <div class="order" id="countOrder" v-if="path === '/'">
         {{ cart.length }}
       </div>
@@ -70,6 +72,9 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    showMenu() {
+      this.$store.dispatch('showMenu')
     }
   }
 }
@@ -156,6 +161,14 @@ export default {
     }
 
     .header .cartHeader{
+      width: 0px;
+    }
+
+    .header .cartHeader .title {
+      display: none;
+    }
+
+    .header .cartHeader .order {
       display: none;
     }
 
@@ -171,6 +184,35 @@ export default {
     .header .mainHeader .navigation img{
       cursor: pointer;
       margin-right: 10px;
+    }
+
+    .header .mainHeader .navigation .navSearch {
+      right: 0px;
+    }
+  }
+
+  @media screen and (max-width: 800px) and (min-width: 620px){
+    .header .mainHeader .title{
+        font-size: 20px;
+    }
+
+    .header .cartHeader{
+        display: flex;
+        width: 40%;
+    }
+
+    .header .mainHeader .navigation{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .header .mainHeader .navigation .cart{
+        display: none;
+    }
+
+    .header .mainHeader .navigation img{
+        cursor: pointer;
+        margin-right: 10px;
     }
   }
 </style>

@@ -118,4 +118,16 @@ export default {
   .item .name{
     font-size: 15pt;
   }
+
+  @media screen and (max-width: 800px) {
+    .item{
+        width: 180px;
+        height: 200px;
+    }
+
+    .item .img img{
+        width: 180px;
+        height: 150px;
+    }
+  }
 </style>

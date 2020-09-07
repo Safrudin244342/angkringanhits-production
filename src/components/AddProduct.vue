@@ -299,4 +299,32 @@ export default {
     border-radius: 10px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 800px) {
+    .modal .addItem{
+        width: 60%;
+        height: 65%;
+    }
+
+    .addItem .header .title{
+        font-size: 20pt;
+    }
+
+    .addItem .body .item .title{
+        width: 30%;
+        font-size: 15pt;
+    }
+
+    .addItem .body .item .action .dropdown .header .value{
+        font-size: 15px;
+    }
+
+    .addItem .body .item .action .dropdown .header img{
+        width: 10px;
+    }
+
+    .addItem .body .item .action .dropdown .list .item{
+        font-size: 15px;
+    }
+  }
 </style>

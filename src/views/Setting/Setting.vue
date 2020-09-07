@@ -65,4 +65,11 @@ export default {
     width: 300px;
     min-height: 500px;
   }
+
+  @media screen and (max-width: 800px) {
+    .main .listFood {
+      margin-left: 0px;
+      margin-right: 40%;
+    }
+  }
 </style>

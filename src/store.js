@@ -14,7 +14,8 @@ const store = new vuex.Store({
     },
     path: '/',
     settingDetail: {},
-    listItemSetting: []
+    listItemSetting: [],
+    stateMenu: false 
   },
   mutations: {
     addOrder(state, newOrder) {
@@ -69,6 +70,9 @@ const store = new vuex.Store({
     updateItemSetting(state, newItem){
       const index = state.listItemSetting.findIndex(value => value.id === newItem.id)
       state.listItemSetting.splice(index, 1, newItem)
+    },
+    showMenu(state){
+      state.stateMenu = !state.stateMenu
     }
   },
   actions: {
@@ -113,6 +117,9 @@ const store = new vuex.Store({
     },
     updateItemSetting({ commit }, newItem){
       commit('updateItemSetting', newItem)
+    },
+    showMenu({ commit }){
+      commit('showMenu')
     }
   },
   getters: {
@@ -121,7 +128,8 @@ const store = new vuex.Store({
     getNotif: state => state.notif,
     getPath: state => state.path,
     getSettingDetail: state => state.settingDetail,
-    getListItemSetting: state => state.listItemSetting
+    getListItemSetting: state => state.listItemSetting,
+    getShowMenu: state => state.stateMenu
   }
 })
 

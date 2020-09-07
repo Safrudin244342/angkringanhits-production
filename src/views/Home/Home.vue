@@ -368,6 +368,10 @@ export default {
 
   @media screen and (max-width: 400px){
 
+    main section .listFood .header {
+      font-size: 10pt;
+    }
+
     main section .listFood{
         margin-left: 0px;
         margin-right: 0px;
@@ -414,7 +418,7 @@ export default {
     }
 
     .order .list .detail .navigation{
-        width: 220px;
+        width: 200px;
     }
 
     .order .list .detail .navigation .action{
@@ -424,6 +428,58 @@ export default {
     .order .list .detail .navigation .price{
         margin-top: 10px;
         font-size: 12pt;
+    }
+
+    .listOrder .confirm {
+      width: 365px;
+    }
+  }
+
+  @media screen and (max-width: 800px) and (min-width: 620px){
+    main section .listFood{
+        margin-left: 0px;
+        margin-right: 40%;
+    }
+
+    main section .listOrder{
+        display: flex;
+        z-index: 1;
+        width: 40%;
+        margin-left: 60%;
+    }
+
+    .order .list{
+        color: black;
+        height: 60%;
+    }
+    
+    .order .list .item{
+        display: flex;
+        padding-top: 5px;
+        font-weight: bold;
+    }
+    
+    .order .list .item img{
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+    }
+
+    .order .list .detail .title{
+        font-size: 10pt;
+    }
+
+    .order .list .detail .navigation{
+        width: 220px;
+    }
+
+    .order .list .detail .navigation .action{
+        margin-top: 0px;
+    }
+
+    .order .list .detail .navigation .price{
+        margin-top: 5px;
+        font-size: 10pt;
     }
   }
 </style>

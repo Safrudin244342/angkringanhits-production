@@ -368,4 +368,10 @@ export default {
   .table .footer .nav .page {
     margin: 5px;
   }
+
+  @media screen and (max-width: 800px){
+    main section.main{
+        margin-left: 0px;
+    }
+  }
 </style>

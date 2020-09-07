@@ -144,4 +144,35 @@ export default {
     margin-top: 15px;
     font-size: 15pt;
   }
+
+  @media screen and (max-width: 800px) {
+    .item{
+        display: flex;
+        padding-top: 5px;
+        font-weight: bold;
+    }
+    
+    .item img{
+        width: 70px;
+        height: 70px;
+        border-radius: 10px;
+    }
+
+    .item .detail .title{
+        font-size: 10pt;
+    }
+
+    .item .detail .navigation{
+        width: 220px;
+    }
+
+    .item .detail .navigation .action{
+        margin-top: 0px;
+    }
+
+    .item .detail .navigation .price{
+        margin-top: 5px;
+        font-size: 10pt;
+    }
+  }
 </style>

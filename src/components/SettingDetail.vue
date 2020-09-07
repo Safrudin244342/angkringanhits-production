@@ -277,4 +277,13 @@ export default {
     border-radius: 10px;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 800px) {
+    .detailFood{
+        display: flex;
+        z-index: 1;
+        width: 40%;
+        margin-left: 60%;
+    }
+  }
 </style>

@@ -4,6 +4,7 @@
 
     <main>
       <AppNav />
+      <HideNav v-if="showMenu"/>
       <router-view></router-view>
     </main>
     <div class='modal' v-if="notif.show">
@@ -22,16 +23,21 @@
 <script>
 import AppHeader from './components/Header'
 import AppNav from './components/Nav'
+import HideNav from './components/HideNav'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    AppNav
+    AppNav,
+    HideNav
   },
   computed: {
     notif(){
       return this.$store.getters.getNotif
+    },
+    showMenu() {
+      return this.$store.getters.getShowMenu
     }
   },
   methods: {

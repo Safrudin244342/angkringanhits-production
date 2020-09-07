@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   aside{
     z-index: 1;
     margin-top: 80px;
@@ -80,7 +80,6 @@ export default {
   @media screen and (max-width: 400px){
     aside{
         margin-top: 74px;
-        display: none;
         z-index: 1;
     }
 
@@ -96,7 +95,6 @@ export default {
   @media screen and (max-width: 800px) {
     aside{
         margin-top: 74px;
-        display: none;
         z-index: 1;
     }
 
