@@ -1,14 +1,46 @@
 <template>
   <section class='main' :style="[modalCheckoutState ? { 'z-index':'2' }:{ 'z-index':'0' }]">
     <article class='listFood'>
-      <ProductItem 
-        v-for='item in items' :key='item.id'
-        :id="item.id"
-        :name="item.name"
-        :price="item.price"
-        :stock="item.stock"
-        :image="host + item.imgLocation"
-      />
+      <div class='header'>
+
+        <div class='navShow' @click="showAllFoods()">
+          Show All Foods
+        </div>
+
+        <div class='navSort'>
+          Sort By 
+          <div class='dropdown'>
+            <div class='header'>
+              {{ sort }}
+              <img src="@/assets/icon/arrow-down-sign-to-navigate 1.png" width='10px' height="10px">
+            </div>
+            <div class='list'>
+              <div class='item' v-for="(by, id) in listSort" :key="id" @click="changeSort(by)">{{ by }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class='dropdown'>
+          <div class='header'>
+            {{ sortAction }}
+            <img src="@/assets/icon/arrow-down-sign-to-navigate 1.png" width='10px' height="10px">
+          </div>
+          <div class='list'>
+            <div class='item' v-for="(action, id) in listSortAction" :key="id" @click="changeSortAction(action)">{{ action }}</div>
+          </div>
+        </div>
+
+      </div>
+      <div class='main'>
+        <ProductItem 
+          v-for='item in items' :key='item.id'
+          :id="item.id"
+          :name="item.name"
+          :price="item.price"
+          :stock="item.stock"
+          :image="item.imgLocation"
+        />
+      </div>
     </article>
         
     <section class='listOrder'>
@@ -89,7 +121,12 @@ export default {
     return {
       host: 'http://localhost/',
       pay: 0,
-      modalCheckoutState: false
+      modalCheckoutState: false,
+      listSort: ['name', 'price', 'date'],
+      sort: 'name',
+      listSortAction: ['Z-A'],
+      sortAction: 'A-Z',
+      idAction: 1
     }
   },
   computed: {
@@ -119,6 +156,48 @@ export default {
     },
     cleanOrder(){
       this.$store.dispatch('cleanOrder')
+    },
+    changeSort(sort) {
+      this.sort = sort
+      this.listSortAction = sort === 'name' ? ['Z - A']:sort === 'price' ? ['Termahal - Termurah']:['Baru - Lama']
+      this.sortAction = sort === 'name' ? 'A - Z':sort === 'price' ? 'Termurah - Termahal':'Lama - Baru'
+      this.idAction = 1
+
+      const action = this.idAction === 1 ? 'down':'up'
+
+      axios.get(process.env.VUE_APP_API + `/product/by/${sort}/${action}`)
+        .then(res => {
+          this.$store.dispatch('changeProducts', res.data.values)
+          console.log(res.data)
+          console.log(`/product/by/${sort}/${action}`)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    changeSortAction(sortAction) {
+      this.sortAction = [sortAction, this.listSortAction[0] = this.sortAction][0]
+      this.idAction = this.idAction === 1 ? 2:1
+
+      const action = this.idAction === 1 ? 'down':'up'
+
+      axios.get(process.env.VUE_APP_API + `/product/by/${this.sort}/${action}`)
+        .then(res => {
+          this.$store.dispatch('changeProducts', res.data.values)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    showAllFoods() {
+      axios.get(process.env.VUE_APP_API + '/product')
+        .then(res => {
+          const list = res.data.values
+          this.$store.dispatch('changeProducts', list)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }
@@ -138,13 +217,74 @@ export default {
     margin-left: 70px;
     margin-right: 30%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 10px;
+    flex-direction: column;
     flex: 1;
     background-color: rgba(190, 195, 202, 0.3);
     width: 300px;
     min-height: 500px;
+  }
+
+  main section .listFood .header {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    flex: 1;
+    max-height: 30px;
+  }
+
+  main section .listFood .header .navShow {
+    background-color: #CECECE;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  main section .listFood .header .navSort {
+    display: flex;
+    align-items: center;
+  }
+
+  main section .listFood .header .dropdown {
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  main section .listFood .header .dropdown .header {
+    background-color: #CECECE;
+    padding: 5px;
+    border-radius: 10px;
+    align-items: center;
+  }
+
+  main section .listFood .header .dropdown:hover .list {
+    display: block;
+  }
+
+  main section .listFood .header .dropdown .list {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    border-radius: 10px;
+  }
+
+  main section .listFood .header .dropdown .list .item {
+    padding: 5px;
+  }
+
+  main section .listFood .header .dropdown .list .item:hover {
+    background-color: #CECECE;
+  }
+
+  main section .listFood .main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
   }
 
   main section .listOrder{

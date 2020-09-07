@@ -8,7 +8,7 @@
       </div>
   
       <div class="title">
-        {{ path === '/' ? 'Food Items':'History' }}
+        {{ path === '/' ? 'Food Items':path === '/history' ? 'History':'Setting' }}
       </div>
                 
       <div class="navigation">
@@ -17,7 +17,7 @@
             <input type='text' v-model="search">
             <img src='@/assets/icon/magnifying-glass.png' width='24' height=24 @click="searchProduct()">
           </div>
-          <img src='@/assets/icon/magnifying-glass.png' width='24' height=24 @click="showSearch()">
+          <img src='@/assets/icon/magnifying-glass.png' width='24' height=24 @click="showSearch()" v-if="path === '/'">
         </div>
 
         <div class="cart" id="btnOrder" onclick="showListOrder()">
@@ -28,9 +28,9 @@
         </div>
       </div>
     </div>
-    <div class="cartHeader" :style="[path === '/' ? {'display':'flex'}:{'display':'none'}]">
-      Cart
-      <div class="order" id="countOrder">
+    <div class="cartHeader" :style="[path === '/' || path === '/setting' ? {'display':'flex'}:{'display':'none'}]">
+      {{ path === '/' ? 'Cart':'Item' }}
+      <div class="order" id="countOrder" v-if="path === '/'">
         {{ cart.length }}
       </div>
     </div>

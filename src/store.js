@@ -12,7 +12,9 @@ const store = new vuex.Store({
       status: '',
       show: false
     },
-    path: '/'
+    path: '/',
+    settingDetail: {},
+    listItemSetting: []
   },
   mutations: {
     addOrder(state, newOrder) {
@@ -53,6 +55,20 @@ const store = new vuex.Store({
     },
     changePath(state, newPath){
       state.path = newPath
+    },
+    changeSettingDetail(state, newDetail){
+      state.settingDetail = newDetail
+    },
+    changeListItemSetting(state, newList){
+      state.listItemSetting = newList
+    },
+    removeItemSetting(state, id){
+      const index = state.listItemSetting.findIndex(value => value.id === id)
+      state.listItemSetting.splice(index, 1)
+    },
+    updateItemSetting(state, newItem){
+      const index = state.listItemSetting.findIndex(value => value.id === newItem.id)
+      state.listItemSetting.splice(index, 1, newItem)
     }
   },
   actions: {
@@ -85,13 +101,27 @@ const store = new vuex.Store({
     },
     changePath({ commit }, newPath){
       commit('changePath', newPath)
+    },
+    changeSettingDetail({ commit }, newDetail) {
+      commit('changeSettingDetail', newDetail)
+    },
+    changeListItemSetting({ commit }, newList) {
+      commit('changeListItemSetting', newList)
+    },
+    removeItemSetting({ commit }, id){
+      commit('removeItemSetting', id)
+    },
+    updateItemSetting({ commit }, newItem){
+      commit('updateItemSetting', newItem)
     }
   },
   getters: {
     getCart: state => state.cart,
     getProducts: state => state.products,
     getNotif: state => state.notif,
-    getPath: state => state.path
+    getPath: state => state.path,
+    getSettingDetail: state => state.settingDetail,
+    getListItemSetting: state => state.listItemSetting
   }
 })
 

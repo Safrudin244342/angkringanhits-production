@@ -14,6 +14,11 @@
       <div class="buttonAdd" @click="addProduct()">
         <img src="@/assets/icon/add.png">
       </div>
+      <div class="buttonSetting">
+        <router-link to='/setting'>
+          <img src="@/assets/icon/settings-icon.png">
+        </router-link>
+      </div>
     </aside>
 
     <AddProduct :closeModel='this.closeModel' :model='model'/>

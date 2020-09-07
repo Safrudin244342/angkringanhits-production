@@ -42,6 +42,10 @@ export default {
   updated() {
     const path = this.$router.history.current.path
     this.$store.dispatch('changePath', path)
+  },
+  mounted() {
+    const path = this.$router.history.current.path
+    this.$store.dispatch('changePath', path)
   }
 }
 </script>
