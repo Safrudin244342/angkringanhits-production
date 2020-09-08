@@ -1,24 +1,6 @@
-# angkringanhits-vue
+## Introduction
 
-## Project setup
-```
-yarn install
-```
+[![vue](https://img.shields.io/badge/vue-https%3A%2F%2Fvuejs.org%2F-red)](https://vuejs.org/)
+[![yarn](https://img.shields.io/badge/yarn-berry-red)](https://github.com/yarnpkg/berry)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+<p align='justify'>Angkringan hits 2.0</p>

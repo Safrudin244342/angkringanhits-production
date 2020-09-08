@@ -18,24 +18,45 @@
       </div>
 
       <div class='main'>
-        <LineChart></LineChart>
+        <LineChart 
+          v-if="this.chartLast.length > 0"
+          :nowId="this.chartID"
+          :nowData="this.chartNow"
+          :lastData="this.chartLast"
+          :state="this.chartBy">
+        </LineChart>
       </div>
   </div>  
 </template>
 
 <script>
 import LineChart from '@/components/LineChart'
+import axios from 'axios'
 
 export default {
   name: 'HistoryChart',
   data() {
     return {
       chartBy: 'week',
-      listChartBy: ['week', 'month', 'year']
+      listChartBy: ['week', 'month'],
+      chartID: [],
+      chartNow: [],
+      chartLast: []
     }
   },
   components: {
     LineChart
+  },
+  mounted() {
+    axios.get(process.env.VUE_APP_API + `/history/report/${this.chartBy}`)
+      .then(res => {
+        this.chartID = res.data.values.now.id
+        this.chartNow = res.data.values.now.amount
+        this.chartLast = res.data.values.last.amount
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   methods: {
     changeChartBy(by) {

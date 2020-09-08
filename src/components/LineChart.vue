@@ -6,19 +6,19 @@
     data () {
       return {
         chartData: {
-          labels: ["Babol",	"Cabanatuan",	"Daegu",	"Jerusalem",	"Fairfield",	"New York",	"Gangtok", "Buenos Aires", "Hafar Al-Batin", "Idlib"],
+          labels: this.nowId,
           datasets: [
             {
-              label: 'Line Chart',
-              data: [600,	1150,	342,	6050,	2522,	3241,	1259,	157,	1545, 9841],
+              label: `This ${this.state}`,
+              data: this.nowData,
               fill: false,
               borderColor: '#FBB2B4',
               backgroundColor: '#2554FF',
               borderWidth: 5
             },
             {
-              label: 'Line Chart',
-              data: [700,	1250,	542,	6550,	1522,	2241,	2259,	257,	1245, 9341],
+              label: `Last ${this.state}`,
+              data: this.lastData,
               fill: false,
               borderColor: '#29DFFF',
               backgroundColor: '#2554FF',
@@ -52,6 +52,30 @@
     },
     mounted () {
       this.renderChart(this.chartData, this.options)
+    },
+    watch: {
+      data: function() {
+        this._chart.destroy();
+        this.renderLineChart();
+      }
+    },
+    props: {
+      nowId: {
+        type: Array,
+        required: true
+      },
+      nowData: {
+        type: Array,
+        required: true
+      },
+      lastData: {
+        type: Array,
+        required: true
+      },
+      state: {
+        type: String,
+        required: true
+      }
     }
   }
 </script>
