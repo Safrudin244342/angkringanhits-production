@@ -131,7 +131,7 @@ export default {
   },
   computed: {
     cart() {
-      return this.$store.state.cart
+      return this.$store.getters.getCart
     },
     items() {
       return this.$store.getters.getProducts

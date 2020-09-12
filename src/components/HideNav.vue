@@ -6,17 +6,26 @@
           <img src="@/assets/icon/fork.png">
         </router-link>
       </div>
-      <div class="buttonHistory">
+
+      <div class="buttonHistory" v-if="rule === 'admin'">
         <router-link to='/history'>
           <img src="@/assets/icon/clipboard.png">
         </router-link>
       </div>
-      <div class="buttonAdd" @click="addProduct()">
+      
+      <div class="buttonAdd" @click="addProduct()" v-if="rule === 'admin'">
         <img src="@/assets/icon/add.png">
       </div>
-      <div class="buttonSetting">
+      
+      <div class="buttonSetting" v-if="rule === 'admin'">
         <router-link to='/setting'>
           <img src="@/assets/icon/settings-icon.png">
+        </router-link>
+      </div>
+
+      <div class="buttonLogin">
+        <router-link to='/login'>
+          <img src="@/assets/icon/user.png">
         </router-link>
       </div>
     </aside>
@@ -35,6 +44,11 @@ export default {
       model: false
     }
   },
+  computed: {
+    rule() {
+      return this.$store.getters.getRule
+    }
+  },
   methods: {
     addProduct(){
       this.model = true
@@ -50,7 +64,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   aside{
     z-index: 1;
     margin-top: 80px;
@@ -80,6 +94,7 @@ export default {
   @media screen and (max-width: 400px){
     aside{
         margin-top: 74px;
+        display: none;
         z-index: 1;
     }
 
@@ -95,6 +110,7 @@ export default {
   @media screen and (max-width: 800px) {
     aside{
         margin-top: 74px;
+        display: none;
         z-index: 1;
     }
 

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './Store/main'
 import Rupiah from './helper/Rupiah'
 
 Vue.config.productionTip = false

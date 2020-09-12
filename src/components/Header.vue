@@ -46,7 +46,7 @@ export default {
   name: 'header', 
   computed: {
     cart() {
-      return this.$store.state.cart
+      return this.$store.getters.getCart
     },
     path() {
       return this.$store.getters.getPath
