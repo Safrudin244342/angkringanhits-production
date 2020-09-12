@@ -6,6 +6,7 @@ Vue.use(VueRouter)
 import home from './views/Home/Home'
 import history from './views/History/History'
 import setting from './views/Setting/Setting'
+import login from './views/Login/Login'
 
 const mainRouter = new VueRouter({
   routes: [
@@ -21,6 +22,10 @@ const mainRouter = new VueRouter({
       path: '/setting',
       name: 'setting',
       component: setting
+    },{
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ],
   mode: 'history'

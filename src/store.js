@@ -15,7 +15,9 @@ const store = new vuex.Store({
     path: '/',
     settingDetail: {},
     listItemSetting: [],
-    stateMenu: false 
+    stateMenu: false,
+    rule: '',
+    token: ''
   },
   mutations: {
     addOrder(state, newOrder) {
@@ -129,7 +131,8 @@ const store = new vuex.Store({
     getPath: state => state.path,
     getSettingDetail: state => state.settingDetail,
     getListItemSetting: state => state.listItemSetting,
-    getShowMenu: state => state.stateMenu
+    getShowMenu: state => state.stateMenu,
+    getRule: state => state.rule
   }
 })
 
