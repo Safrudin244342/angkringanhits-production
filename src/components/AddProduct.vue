@@ -27,7 +27,7 @@
         <div class="item">
           <div class="title">Image</div>
           <div class="action">
-            <input type="text" v-model="image">
+            <input type="file" ref='file' @change="changeImageFile()">
           </div>
         </div>
 
@@ -72,6 +72,7 @@
 
 <script>
 import axios from 'axios'
+import FormData from 'form-data'
 
 export default {
   name: 'AddProduct',
@@ -109,30 +110,38 @@ export default {
     },
     addProduct(){
       if (!(this.category === 'Category')) {
-        axios.post(process.env.VUE_APP_API + '/product', {
-          name: this.name,
-          price: this.price,
-          stock: this.stock,
-          category: this.category,
-          imgLocation: this.image
-        }, {
+        const productData = new FormData()
+        productData.append('name', this.name)
+        productData.append('price', this.price)
+        productData.append('stock', this.stock)
+        productData.append('category', this.category)
+        productData.append('image', this.image)
+        
+        const axiosConfig = {
+          method: 'POST',
+          url: process.env.VUE_APP_API + '/product',
           headers: {
-            token: this.$store.getters.getToken
-          }
-        })
+            token: this.$store.getters.getToken,
+            'Content-Type': 'multipart/form-data'
+          },
+          data: productData
+        }
+
+        axios(axiosConfig)
         .then(res => {
+          console.log(res)
           const success = res.data.success
 
           if (success) {
             if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
 
             const newProduct = {
-              id: (parseInt(this.$store.state.products[0].id) + 1).toString(),
+              id: (parseInt(this.$store.getters.getProducts[0].id) + 1).toString(),
               name: this.name,
               price: parseInt(this.price),
               stock: parseInt(this.stock),
               category: this.category,
-              imgLocation: this.image
+              image: this.image
             }
 
             this.$store.dispatch('addProduct', newProduct)
@@ -171,6 +180,9 @@ export default {
 
         this.$store.dispatch('showNotif', newNotif)
       }
+    },
+    changeImageFile() {
+      this.image = this.$refs.file.files[0]
     }
   }
 }
@@ -191,7 +203,7 @@ export default {
   .modal .addItem{
     justify-self: center;
     width: 35%;
-    height: 65%;
+    height: auto;
     background-color: white;
     border-radius: 10px;
     margin-left: auto;

@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.16.0",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
+    "form-data": "^3.0.0",
     "jwt-decode": "^3.0.0-beta.2",
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.1",
