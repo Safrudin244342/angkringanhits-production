@@ -115,11 +115,17 @@ export default {
           stock: this.stock,
           category: this.category,
           imgLocation: this.image
+        }, {
+          headers: {
+            token: this.$store.getters.getToken
+          }
         })
         .then(res => {
           const success = res.data.success
 
           if (success) {
+            if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
+
             const newProduct = {
               id: (parseInt(this.$store.state.products[0].id) + 1).toString(),
               name: this.name,
@@ -250,7 +256,6 @@ export default {
     border: 0px;
     border-radius: 10px;
     height: 40px;
-    cursor: pointer;
   }
 
   .addItem .body .item .action .dropdown:hover .list{

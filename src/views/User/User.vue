@@ -1,9 +1,7 @@
 <template>
-  <div class='login'>
+  <div class='user'>
     <!-- Form Login -->
-    <div class='form'>
-      <h1>Form login</h1>
-    </div>
+    <Form v-if="rule === ''"/>
 
     <!-- User Setting -->
     <div class='setting' v-if="rule === 'user' || rule === 'admin'">
@@ -13,19 +11,30 @@
 </template>
 
 <script>
+import Form from '@/components/User/Form'
+
 export default {
-  name: 'login',
+  name: 'user',
   computed: {
     rule() {
       return this.$store.getters.getRule
+    },
+    token() {
+      return this.$store.getters.getToken
     }
-  }  
+  },
+  components: {
+    Form
+  }
 }
 </script>
 
 <style scoped>
-  .login {
+  .user {
     margin-top: 80px;
     margin-left: 70px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
   }
 </style>

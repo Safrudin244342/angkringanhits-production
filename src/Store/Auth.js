@@ -1,3 +1,5 @@
+import JWTDecode from 'jwt-decode'
+
 const Auth = {
   state: () => ({
     rule: '',
@@ -5,6 +7,8 @@ const Auth = {
   }),
   mutations: {
     changeToken(state, newToken) {
+      const DecToken = JWTDecode(newToken)
+      state.rule = DecToken.rule
       state.token = newToken
     }
   },

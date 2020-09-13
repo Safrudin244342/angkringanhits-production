@@ -8,7 +8,7 @@
       </div>
   
       <div class="title">
-        {{ path === '/' ? 'Food Items':path === '/history' ? 'History':'Setting' }}
+        {{ path === '/' ? 'Food Items':path === '/history' ? 'History':path === '/user' ? 'User':'Setting' }}
       </div>
                 
       <div class="navigation">

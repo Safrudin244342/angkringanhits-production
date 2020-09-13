@@ -44,12 +44,23 @@ export default {
       chartLast: []
     }
   },
+  computed: {
+    token() {
+      return this.$store.getters.getToken
+    }
+  },
   components: {
     LineChart
   },
   mounted() {
-    axios.get(process.env.VUE_APP_API + `/history/report/${this.chartBy}`)
+    axios.get(process.env.VUE_APP_API + `/history/report/${this.chartBy}`, {
+      headers: {
+        token: this.token
+      }
+    })
       .then(res => {
+        if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
+
         this.chartID = res.data.values.now.id
         this.chartNow = res.data.values.now.amount
         this.chartLast = res.data.values.last.amount

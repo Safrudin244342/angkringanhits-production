@@ -108,7 +108,11 @@ export default {
   },
   methods: {
     deleteProduct() {
-      axios.delete(process.env.VUE_APP_API + `/product/${this.detail.id}`)
+      axios.delete(process.env.VUE_APP_API + `/product/${this.detail.id}`, {
+        headers: {
+          token: this.$store.getters.getToken
+        }
+      })
         .then(res => {
           const success = res.data.success
 
@@ -116,8 +120,21 @@ export default {
             this.$store.dispatch('removeItemSetting', this.detail.id)
             const newSelect = {}
             this.$store.dispatch('changeSettingDetail', newSelect)
+
+            const newNotif = {
+              message: 'Success',
+              status: 'success',
+              show: true
+            }
+            this.$store.dispatch('showNotif', newNotif)
           } else {
-            console.log(res.data.errMsg)
+            const newNotif = {
+              message: res.data.errMsg,
+              status: 'error',
+              show: true
+            }
+
+            this.$store.dispatch('showNotif', newNotif)
           }
 
         })      
@@ -146,8 +163,21 @@ export default {
             }
 
             this.$store.dispatch('updateItemSetting', itemUpdate)
+
+            const newNotif = {
+              message: 'Success',
+              status: 'success',
+              show: true
+            }
+            this.$store.dispatch('showNotif', newNotif)
           } else {
-            console.log(res.data.errMsg)
+            const newNotif = {
+              message: res.data.errMsg,
+              status: 'error',
+              show: true
+            }
+
+            this.$store.dispatch('showNotif', newNotif)
           }
         })
     }

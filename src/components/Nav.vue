@@ -24,7 +24,7 @@
       </div>
 
       <div class="buttonLogin">
-        <router-link to='/login'>
+        <router-link to='/user'>
           <img src="@/assets/icon/user.png">
         </router-link>
       </div>

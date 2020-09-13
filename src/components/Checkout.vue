@@ -91,6 +91,9 @@ export default {
     },
     tax() {
       return (this.$store.getters.getCart.reduce((a, b) => a + (b['pay'] || 0), 0) / 100) * 10
+    },
+    token() {
+      return this.$store.getters.getToken
     }
   },
   methods: {
@@ -104,11 +107,17 @@ export default {
         cashier,
         amount,
         orders: listOrder
+      },{
+        headers: {
+          token: this.token
+        }
       })
         .then(res => {
           const success = res.data.success
 
           if (success){
+            if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
+            
             const newNotif = {
               message: 'Success',
               status: 'success',
