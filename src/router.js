@@ -12,11 +12,11 @@ const mainRouter = new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'app',
+      name: 'home',
       component: home,
     },{
       path: '/history',
-      name: 'home',
+      name: 'history',
       component: history,
     },{
       path: '/setting',
@@ -24,7 +24,7 @@ const mainRouter = new VueRouter({
       component: setting
     },{
       path: '/user',
-      name: 'login',
+      name: 'user',
       component: user
     }
   ],

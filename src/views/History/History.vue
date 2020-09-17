@@ -133,6 +133,18 @@ export default {
   components: {
     HistoryChart
   },
+  beforeRouteEnter (to, from, next){
+    next(vm => {
+      if (vm.$store.getters.getRule !== 'admin') {
+        next({
+          path: '/',
+          query: { redirect: to.fullPath }
+        })
+      }
+      
+      next()
+    })
+  },
   mounted() {
     axios.get(process.env.VUE_APP_API + '/history/report', {
       headers: {

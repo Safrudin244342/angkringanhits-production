@@ -40,6 +40,18 @@ export default {
     items() {
       return this.$store.getters.getListItemSetting
     }
+  },
+  beforeRouteEnter (to, from, next){
+    next(vm => {
+      if (vm.$store.getters.getRule !== 'admin') {
+        next({
+          path: '/',
+          query: { redirect: to.fullPath }
+        })
+      }
+      
+      next()
+    })
   }
 }
 </script>
