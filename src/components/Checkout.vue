@@ -100,7 +100,7 @@ export default {
     saveCheckout() {
       let listOrder = this.carts.reduce((a, b) => a + ',' + (b['name'] || ''), '')
       listOrder = listOrder.substr(listOrder.indexOf(",") + 1)
-      const cashier = this.cashier
+      const cashier = this.$store.getters.getUser
       const amount = this.payAll
       
       axios.post(process.env.VUE_APP_API + '/history', {

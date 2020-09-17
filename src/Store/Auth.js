@@ -3,12 +3,14 @@ import JWTDecode from 'jwt-decode'
 const Auth = {
   state: () => ({
     rule: '',
-    token: ''
+    token: '',
+    user: ''
   }),
   mutations: {
     changeToken(state, newToken) {
       const DecToken = JWTDecode(newToken)
       state.rule = DecToken.rule
+      state.user = DecToken.user
       state.token = newToken
     }
   },
@@ -19,7 +21,8 @@ const Auth = {
   },
   getters: {
     getRule: state => state.rule,
-    getToken: state => state.token
+    getToken: state => state.token,
+    getUser: state => state.user
   }
 }
 
