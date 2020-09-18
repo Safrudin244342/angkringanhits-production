@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import AddProduct from './AddProduct'
 
 export default {
@@ -62,7 +63,20 @@ export default {
       this.model = false
     },
     logout() {
-      this.$store.dispatch('logout')
+      const axiosConfig = {
+        method: 'delete',
+        url: process.env.VUE_APP_API + '/user',
+        headers: {
+          token: this.$store.getters.getToken 
+        }
+      }
+
+      axios(axiosConfig)
+        .then(res => {
+          if (res.data.error) return this.$store.dispatch('showNotif', { message: res.data.errMsg, status: 'error', show: true })
+          this.$store.dispatch('logout')
+        })
+        .catch(err => console.log(err))
     }
   },
   components: {
