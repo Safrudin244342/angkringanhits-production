@@ -75,6 +75,7 @@ export default {
         .then(res => {
           if (res.data.error) return this.$store.dispatch('showNotif', { message: res.data.errMsg, status: 'error', show: true })
           this.$store.dispatch('logout')
+          this.$router.push({ path: '/' })
         })
         .catch(err => console.log(err))
     }
