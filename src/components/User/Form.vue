@@ -24,7 +24,7 @@
     </div>
 
     <div class='footer'>
-      <button style="background-color: #F24F8A;" @click="closeModel()">Register</button>
+      <button style="background-color: #F24F8A;" @click="showModal()">Register</button>
       <button style="background-color: #57CAD5;" @click="Login()">Login</button>
     </div>
 
@@ -42,6 +42,12 @@ export default {
       password: ''
     }
   },
+  props: {
+    showModal: {
+      type: Function,
+      require: true
+    }
+  },
   methods: {
     Login() {
       console.log(this.username, this.password)
@@ -49,7 +55,17 @@ export default {
         username: this.username,
         password: this.password
       })
-        .then(res => this.$store.dispatch('changeToken', res.data.values[0].token))
+        .then(res => {
+          if (res.data.error) {
+            const newNotif = {
+              message: res.data.errMsg,
+              status: 'error',
+              show: true
+            }
+            return this.$store.dispatch('showNotif', newNotif)
+          }
+          this.$store.dispatch('changeToken', res.data.values[0].token)
+        })
         .catch(err => console.log(err))
     }
   }

@@ -77,11 +77,6 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      cashier: 'safrudin'
-    }
-  },
   computed: {
     carts() {
       return this.$store.getters.getCart
@@ -94,6 +89,9 @@ export default {
     },
     token() {
       return this.$store.getters.getToken
+    },
+    cashier() {
+      return this.$store.getters.getUser
     }
   },
   methods: {

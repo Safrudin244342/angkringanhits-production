@@ -1,17 +1,20 @@
 <template>
   <div class='user'>
     <!-- Form Login -->
-    <Form v-if="rule === ''"/>
+    <Form v-if="rule === ''" :showModal='this.changeModal'/>
 
     <!-- User Setting -->
     <div class='setting' v-if="rule === 'user' || rule === 'admin'">
       <h1>Form setting</h1>
     </div>
+
+    <Register :showModal='showModal' :closeModal='this.changeModal'/>
   </div>
 </template>
 
 <script>
 import Form from '@/components/User/Form'
+import Register from '@/components/User/Register'
 
 export default {
   name: 'user',
@@ -23,8 +26,19 @@ export default {
       return this.$store.getters.getToken
     }
   },
+  data() {
+    return {
+      showModal: false
+    }
+  },
   components: {
-    Form
+    Form,
+    Register
+  },
+  methods: {
+    changeModal() {
+      this.showModal = !this.showModal
+    }
   }
 }
 </script>
