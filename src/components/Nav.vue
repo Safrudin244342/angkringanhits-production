@@ -23,10 +23,14 @@
         </router-link>
       </div>
 
-      <div class="buttonLogin">
+      <div class="buttonLogin" v-if="rule === ''">
         <router-link to='/user'>
           <img src="@/assets/icon/user.png">
         </router-link>
+      </div>
+
+      <div class="buttonLogout" v-if="rule !== ''" @click="logout()">
+        <img src="@/assets/icon/logout.png">
       </div>
     </aside>
 
@@ -56,6 +60,9 @@ export default {
     
     closeModel(){
       this.model = false
+    },
+    logout() {
+      this.$store.dispatch('logout')
     }
   },
   components: {

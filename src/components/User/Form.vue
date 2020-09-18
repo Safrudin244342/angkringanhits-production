@@ -65,6 +65,7 @@ export default {
             return this.$store.dispatch('showNotif', newNotif)
           }
           this.$store.dispatch('changeToken', res.data.values[0].token)
+          this.$router.push({ path: '/' })
         })
         .catch(err => console.log(err))
     }
