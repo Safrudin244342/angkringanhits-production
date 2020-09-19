@@ -129,12 +129,10 @@ export default {
 
         axios(axiosConfig)
         .then(res => {
-          console.log(res)
+          if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
           const success = res.data.success
 
           if (success) {
-            if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
-
             const newProduct = {
               id: (parseInt(this.$store.getters.getProducts[0].id) + 1).toString(),
               name: res.data.values[0].name,

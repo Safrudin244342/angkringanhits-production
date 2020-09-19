@@ -146,14 +146,10 @@ export default {
     })
   },
   mounted() {
-    axios.get(process.env.VUE_APP_API + '/history/report', {
-      headers: {
-        token: this.token
-      }
-    })
+    axios.get(process.env.VUE_APP_API + '/history/report', { headers: { token: this.token } })
       .then(res => {
-        if (res.data.error) return console.log(res.data.errMsg)
         if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
+        if (res.data.error) return console.log(res.data.errMsg)
 
         this.income = res.data.values
       })
@@ -161,14 +157,10 @@ export default {
         console.log(err)
       })
     
-    axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy,{
-      headers: {
-        token: this.token
-      }
-    })
+    axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy,{ headers: { token: this.token } })
       .then(res => {
-        if (res.data.error) return console.log(res.data.errMsg)
         if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
+        if (res.data.error) return console.log(res.data.errMsg)
 
         this.historys = res.data.values
         const start = 0
@@ -184,14 +176,10 @@ export default {
   methods: {
     changeTableBy(by) {
       this.tableBy = by
-      axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy, {
-        headers: {
-          token: this.token
-        }
-      })
+      axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy, { headers: { token: this.token } })
         .then(res => {
-          if (res.data.error) return console.log(res.data.errMsg)
           if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
+          if (res.data.error) return console.log(res.data.errMsg)
 
           this.historys = res.data.values
           const start = 0
