@@ -118,9 +118,11 @@ export default {
         }
       })
         .then(res => {
+          if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
           const success = res.data.success
 
           if (success) {
+
             this.$store.dispatch('removeItemSetting', this.detail.id)
             const newSelect = {}
             this.$store.dispatch('changeSettingDetail', newSelect)
@@ -164,6 +166,7 @@ export default {
 
       axios(axiosConfig)
         .then(res => {
+          if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
           const success = res.data.success
 
           if (success) {
