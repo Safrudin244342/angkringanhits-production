@@ -50,7 +50,6 @@ export default {
   },
   methods: {
     Login() {
-      console.log(this.username, this.password)
       axios.post(process.env.VUE_APP_API + '/user/auth', {
         username: this.username,
         password: this.password

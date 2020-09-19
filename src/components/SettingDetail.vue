@@ -30,7 +30,7 @@
         <div class="item">
           <div class="title">Image</div>
           <div class="action">
-            <input type="text" v-model="detail.image">
+            <input type="file" ref='file' @change="changeImageFile()">
           </div>
         </div>
 
@@ -75,6 +75,7 @@
 
 <script>
 import axios from 'axios'
+import FormData from 'form-data'
 
 export default {
   name: 'SettingDetail',
@@ -107,6 +108,9 @@ export default {
     this.category = (this.detail.category || 'Category')
   },
   methods: {
+    changeImageFile() {
+      this.detail.image = this.$refs.file.files[0]
+    },
     deleteProduct() {
       axios.delete(process.env.VUE_APP_API + `/product/${this.detail.id}`, {
         headers: {
@@ -140,15 +144,25 @@ export default {
         })      
     },
     updateProduct() {
-      const newItem = {
-        name: this.detail.name,
-        price: this.detail.price,
-        stock: this.detail.stock,
-        category: this.detail.category,
-        imgLocation: this.detail.image
+      const productData = new FormData()
+      productData.append('name', this.detail.name)
+      productData.append('price', this.detail.price)
+      productData.append('stock', this.detail.stock)
+      productData.append('category', this.detail.category)
+      productData.append('image', this.detail.image)
+      console.log(this.name)
+        
+      const axiosConfig = {
+        method: 'put',
+        url: process.env.VUE_APP_API + `/product/${this.detail.id}`,
+        headers: {
+          token: this.$store.getters.getToken,
+          'Content-Type': 'multipart/form-data'
+        },
+        data: productData
       }
 
-      axios.put(process.env.VUE_APP_API + `/product/${this.detail.id}`, newItem)
+      axios(axiosConfig)
         .then(res => {
           const success = res.data.success
 
@@ -180,6 +194,7 @@ export default {
             this.$store.dispatch('showNotif', newNotif)
           }
         })
+        .catch(err => console.log(err))
     }
   }
 }

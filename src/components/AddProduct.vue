@@ -137,11 +137,11 @@ export default {
 
             const newProduct = {
               id: (parseInt(this.$store.getters.getProducts[0].id) + 1).toString(),
-              name: this.name,
-              price: parseInt(this.price),
-              stock: parseInt(this.stock),
-              category: this.category,
-              image: this.image
+              name: res.data.values[0].name,
+              price: parseInt(res.data.values[0].price),
+              stock: parseInt(res.data.values[0].stock),
+              category: res.data.values[0].category,
+              image: res.data.values[0].image
             }
 
             this.$store.dispatch('addProduct', newProduct)
