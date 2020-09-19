@@ -72,8 +72,7 @@ export default {
       }
 
       axios(axiosConfig)
-        .then(res => {
-          if (res.data.error) return this.$store.dispatch('showNotif', { message: res.data.errMsg, status: 'error', show: true })
+        .then(() => {
           this.$store.dispatch('logout')
           this.$router.push({ path: '/' })
         })
