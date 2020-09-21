@@ -139,7 +139,7 @@ export default {
               price: parseInt(res.data.values[0].price),
               stock: parseInt(res.data.values[0].stock),
               category: res.data.values[0].category,
-              image: res.data.values[0].image
+              imgLocation: res.data.values[0].image
             }
 
             this.$store.dispatch('addProduct', newProduct)

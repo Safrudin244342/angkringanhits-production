@@ -173,11 +173,11 @@ export default {
           if (success) {
             const itemUpdate = {
               id: this.detail.id,
-              name: this.detail.name,
-              price: this.detail.price,
-              stock: this.detail.stock,
-              image: this.detail.image,
-              category: this.detail.category
+              name: res.data.values[0].name,
+              price: parseInt(res.data.values[0].price),
+              stock: parseInt(res.data.values[0].stock),
+              category: res.data.values[0].category,
+              imgLocation: res.data.values[0].image
             }
 
             this.$store.dispatch('updateItemSetting', itemUpdate)

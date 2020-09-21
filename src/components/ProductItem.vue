@@ -1,7 +1,7 @@
 <template>
   <div class='item' @click="addCart(id, name, price, stock, image)">
     <div class="img">
-      <img :src=image>
+      <img :src="imageShow">
       <div class="select" v-if="select">
         <img src="@/assets/icon/tick (1).png">
       </div>
@@ -43,6 +43,9 @@ export default {
   computed: {
     select() {
       return this.$store.getters.getCart.some(value => value.id === this.id)
+    },
+    imageShow() {
+      return this.image
     }
   },
   methods: {
