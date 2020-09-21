@@ -16,7 +16,7 @@
 
     <div class='detail' v-if="Object.keys(detail).length > 0">
       <div class='header'>
-        <img :src="detail.image" class='headerImg'>
+        <img :src="image || detail.image" class='headerImg'>
       </div>
 
       <div class='main'>
@@ -87,7 +87,7 @@ export default {
   data () {
     return {
       name: '',
-      image: '',
+      image: null,
       price: '',
       stock: '',
       category: ''
@@ -110,6 +110,7 @@ export default {
   methods: {
     changeImageFile() {
       this.detail.image = this.$refs.file.files[0]
+      this.image = URL.createObjectURL(this.detail.image)
     },
     deleteProduct() {
       axios.delete(process.env.VUE_APP_API + `/product/${this.detail.id}`, {
