@@ -113,12 +113,10 @@ export default {
       this.image = URL.createObjectURL(this.detail.image)
     },
     deleteProduct() {
-      axios.delete(process.env.VUE_APP_API + `/product/${this.detail.id}`, {
-        headers: {
-          token: this.$store.getters.getToken
-        }
-      })
+      this.$store.getters.getProgressBar.start()
+      axios.delete(process.env.VUE_APP_API + `/product/${this.detail.id}`, { headers: { token: this.$store.getters.getToken } })
         .then(res => {
+          this.$store.getters.getProgressBar.done()
           if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
           const success = res.data.success
 
@@ -144,9 +142,14 @@ export default {
             this.$store.dispatch('showNotif', newNotif)
           }
 
-        })      
+        })
+        .catch(err => {
+          console.log(err)
+          this.$store.getters.getProgressBar.done()
+        })
     },
     updateProduct() {
+      this.$store.getters.getProgressBar.start()
       const productData = new FormData()
       productData.append('name', this.detail.name)
       productData.append('price', this.detail.price)
@@ -167,6 +170,7 @@ export default {
 
       axios(axiosConfig)
         .then(res => {
+          this.$store.getters.getProgressBar.done()
           if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
           const success = res.data.success
 
@@ -198,7 +202,10 @@ export default {
             this.$store.dispatch('showNotif', newNotif)
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          this.$store.getters.getProgressBar.done()
+        })
     }
   }
 }

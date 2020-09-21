@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <ProgressBar />
     <AppHeader />
 
     <main>
@@ -24,13 +25,15 @@
 import AppHeader from './components/Header'
 import AppNav from './components/Nav'
 import HideNav from './components/HideNav'
+import ProgressBar from './components/ProgressBar'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
     AppNav,
-    HideNav
+    HideNav,
+    ProgressBar
   },
   computed: {
     notif(){

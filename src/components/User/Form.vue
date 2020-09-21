@@ -50,11 +50,13 @@ export default {
   },
   methods: {
     Login() {
+      this.$store.getters.getProgressBar.start()
       axios.post(process.env.VUE_APP_API + '/user/auth', {
         username: this.username,
         password: this.password
       })
         .then(res => {
+          this.$store.getters.getProgressBar.done()
           if (res.data.error) {
             const newNotif = {
               message: res.data.errMsg,
@@ -66,7 +68,10 @@ export default {
           this.$store.dispatch('changeToken', res.data.values[0].token)
           this.$router.push({ path: '/' })
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          this.$store.getters.getProgressBar.done()
+        })
     }
   }
 }

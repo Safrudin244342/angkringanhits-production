@@ -5,7 +5,8 @@ const Notif = {
       status: '',
       show: false
     },
-    stateMenu: false
+    stateMenu: false,
+    progressBar: ''
   }),
   mutations: {
     showNotif(state, newNotif){
@@ -20,6 +21,9 @@ const Notif = {
     },
     showMenu(state){
       state.stateMenu = !state.stateMenu
+    },
+    setupProgressBar(state, progressBar) {
+      state.progressBar = progressBar
     }
   },
   actions: {
@@ -31,11 +35,15 @@ const Notif = {
     },
     showMenu({ commit }){
       commit('showMenu')
+    },
+    setupProgressBar({commit}, progressBar){
+      commit('setupProgressBar', progressBar)
     }
   },
   getters: {
     getNotif: state => state.notif,
-    getShowMenu: state => state.stateMenu
+    getShowMenu: state => state.stateMenu,
+    getProgressBar: state => state.progressBar
   }
 }
 

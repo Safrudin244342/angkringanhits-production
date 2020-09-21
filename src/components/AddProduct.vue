@@ -110,6 +110,7 @@ export default {
     },
     addProduct(){
       if (!(this.category === 'Category')) {
+        this.$store.getters.getProgressBar.start()
         const productData = new FormData()
         productData.append('name', this.name)
         productData.append('price', this.price)
@@ -129,6 +130,7 @@ export default {
 
         axios(axiosConfig)
         .then(res => {
+          this.$store.getters.getProgressBar.done()
           if (res.data.token) this.$store.dispatch('changeToken', res.data.token)
           const success = res.data.success
 
@@ -150,12 +152,6 @@ export default {
               show: true
             }
             this.$store.dispatch('showNotif', newNotif)
-
-            this.closeModel()
-            this.name = ''
-            this.price = ''
-            this.image = ''
-            this.stock = ''
           } else {
             const newNotif = {
               message: res.data.errMsg,
@@ -168,7 +164,14 @@ export default {
         })
         .catch(err => {
           console.log(err)
+          this.$store.getters.getProgressBar.done()
         })
+        
+        this.closeModel()
+        this.name = ''
+        this.price = ''
+        this.image = ''
+        this.stock = ''
       } else {
         const newNotif = {
           message: 'Category belum dipilih',
