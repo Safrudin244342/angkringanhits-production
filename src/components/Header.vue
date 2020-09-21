@@ -63,6 +63,7 @@ export default {
       this.stateSearch = !this.stateSearch
     },
     searchProduct() {
+      if (this.search == '') return this.stateSearch = false
       axios.get(process.env.VUE_APP_API + '/product/search?name=' + this.search)
         .then(res => {
           this.$store.dispatch('changeProducts', res.data.values)
@@ -90,6 +91,7 @@ export default {
     width: 100%;
     margin-top: 0px;
     background-color: white;
+    box-sizing: border-box;
   }
 
   .header .mainHeader{
@@ -132,16 +134,16 @@ export default {
 
   .search {
     cursor: pointer;
+    display: flex;
   }
 
   .header .mainHeader .navigation .navSearch {
-    position: absolute;
-    top: 50px;
+    position: fixed;
     display: flex;
     background-color: white;
     align-items: center;
     box-shadow: 0px 4px 8px 2px rgba(190, 195, 202, 0.3);
-    padding: 5px;
+    padding: 2px;
     border-radius: 10px;
   }
 
@@ -184,10 +186,6 @@ export default {
     .header .mainHeader .navigation img{
       cursor: pointer;
       margin-right: 10px;
-    }
-
-    .header .mainHeader .navigation .navSearch {
-      right: 0px;
     }
   }
 

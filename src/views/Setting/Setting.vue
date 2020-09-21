@@ -28,7 +28,13 @@ export default {
     SettingDetail
   },
   mounted () {
-    axios.get(process.env.VUE_APP_API + '/product')
+    axios.get(process.env.VUE_APP_API + '/product', {
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Pragma': 'no-cache',
+          'Expires': '0'
+        }
+      })
       .then(res => {
         this.$store.dispatch('changeListItemSetting', res.data.values)
       })

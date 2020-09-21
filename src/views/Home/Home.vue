@@ -138,7 +138,13 @@ export default {
     }
   },
   mounted () {
-    axios.get(process.env.VUE_APP_API + '/product')
+    axios.get(process.env.VUE_APP_API + '/product', {
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0'
+      }
+    })
       .then(res => {
         const list = res.data.values
         this.$store.dispatch('changeProducts', list)

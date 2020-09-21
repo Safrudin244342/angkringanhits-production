@@ -102,7 +102,7 @@ export default {
   },
   beforeMount() {
     this.name = (this.detail.name || '')
-    this.image = (this.detail.image || '')
+    this.image = null
     this.price = (this.detail.price || 0)
     this.stock = (this.detail.stock || 0)
     this.category = (this.detail.category || 'Category')
@@ -156,7 +156,6 @@ export default {
       productData.append('stock', this.detail.stock)
       productData.append('category', this.detail.category)
       productData.append('image', this.detail.image)
-      console.log(this.name)
         
       const axiosConfig = {
         method: 'put',
@@ -192,6 +191,9 @@ export default {
               show: true
             }
             this.$store.dispatch('showNotif', newNotif)
+            this.image = null
+            const newSelect = {}
+            this.$store.dispatch('changeSettingDetail', newSelect)
           } else {
             const newNotif = {
               message: res.data.errMsg,
