@@ -152,6 +152,11 @@ export default {
               show: true
             }
             this.$store.dispatch('showNotif', newNotif)
+
+            this.name = ''
+            this.price = ''
+            this.image = ''
+            this.stock = ''
           } else {
             const newNotif = {
               message: res.data.errMsg,
@@ -168,10 +173,6 @@ export default {
         })
         
         this.closeModel()
-        this.name = ''
-        this.price = ''
-        this.image = ''
-        this.stock = ''
       } else {
         const newNotif = {
           message: 'Category belum dipilih',
