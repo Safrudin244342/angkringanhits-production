@@ -138,7 +138,7 @@ export default {
     }
   },
   mounted () {
-    axios.get(process.env.VUE_APP_API + '/product', {
+    axios.get(process.env.VUE_APP_API + `/product?time=timestamp=${new Date().getTime()}`, {
       headers: {
         'Cache-Control': 'no-cache',
         'Pragma': 'no-cache',
@@ -171,7 +171,7 @@ export default {
 
       const action = this.idAction === 1 ? 'down':'up'
 
-      axios.get(process.env.VUE_APP_API + `/product/by/${sort}/${action}`)
+      axios.get(process.env.VUE_APP_API + `/product/by/${sort}/${action}?time=timestamp=${new Date().getTime()}`)
         .then(res => {
           this.$store.dispatch('changeProducts', res.data.values)
           console.log(res.data)
@@ -187,7 +187,7 @@ export default {
 
       const action = this.idAction === 1 ? 'down':'up'
 
-      axios.get(process.env.VUE_APP_API + `/product/by/${this.sort}/${action}`)
+      axios.get(process.env.VUE_APP_API + `/product/by/${this.sort}/${action}?time=timestamp=${new Date().getTime()}`)
         .then(res => {
           this.$store.dispatch('changeProducts', res.data.values)
         })
@@ -196,7 +196,7 @@ export default {
         })
     },
     showAllFoods() {
-      axios.get(process.env.VUE_APP_API + '/product')
+      axios.get(process.env.VUE_APP_API + `/product?time=timestamp=${new Date().getTime()}`)
         .then(res => {
           const list = res.data.values
           this.$store.dispatch('changeProducts', list)

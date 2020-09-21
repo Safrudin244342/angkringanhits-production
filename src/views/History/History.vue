@@ -146,7 +146,7 @@ export default {
     })
   },
   mounted() {
-    axios.get(process.env.VUE_APP_API + '/history/report', { 
+    axios.get(process.env.VUE_APP_API + `/history/report?time=timestamp=${new Date().getTime()}`, { 
         headers: { 
           token: this.token,
           'Cache-Control': 'no-cache',
@@ -164,7 +164,7 @@ export default {
         console.log(err)
       })
     
-    axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy,{ 
+    axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy + `?time=timestamp=${new Date().getTime()}`,{ 
         headers: { 
           token: this.token,
           'Cache-Control': 'no-cache',
@@ -190,7 +190,7 @@ export default {
   methods: {
     changeTableBy(by) {
       this.tableBy = by
-      axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy, { 
+      axios.get(process.env.VUE_APP_API + '/history/for/' + this.tableBy + `?time=timestamp=${new Date().getTime()}`, { 
           headers: { 
             token: this.token,
             'Cache-Control': 'no-cache',

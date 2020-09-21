@@ -53,7 +53,7 @@ export default {
     LineChart
   },
   mounted() {
-    axios.get(process.env.VUE_APP_API + `/history/report/${this.chartBy}`, {
+    axios.get(process.env.VUE_APP_API + `/history/report/${this.chartBy}?time=timestamp=${new Date().getTime()}`, {
       headers: {
         token: this.token
       }

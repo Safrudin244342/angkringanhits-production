@@ -64,7 +64,7 @@ export default {
     },
     searchProduct() {
       if (this.search == '') return this.stateSearch = false
-      axios.get(process.env.VUE_APP_API + '/product/search?name=' + this.search)
+      axios.get(process.env.VUE_APP_API + '/product/search?name=' + this.search + `&time=timestamp=${new Date().getTime()}`)
         .then(res => {
           this.$store.dispatch('changeProducts', res.data.values)
           this.stateSearch = false

@@ -28,7 +28,7 @@ export default {
     SettingDetail
   },
   mounted () {
-    axios.get(process.env.VUE_APP_API + '/product', {
+    axios.get(process.env.VUE_APP_API + `/product?time=timestamp=${new Date().getTime()}`, {
         headers: {
           'Cache-Control': 'no-cache',
           'Pragma': 'no-cache',
