@@ -10,7 +10,7 @@ pipeline {
 
       steps {
         nodejs('npm') {
-          sh 'npm install'
+          sh 'yarn install'
           echo 'build finish'
         }
       }
