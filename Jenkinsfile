@@ -29,7 +29,7 @@ pipeline {
           }
 
           commitHash = sh (script : "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-          builderDocker = docker.build("244342/angkringanfrontend:${commitHash}", "--build-arg api_host=http://${api_host}/api")
+          builderDocker = docker.build("244342/angkringanfrontend:${commitHash}", "--build-arg api_host=http://${api_host}/api", ".")
         }
       }
 
