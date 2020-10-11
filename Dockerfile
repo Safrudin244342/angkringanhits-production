@@ -1,5 +1,6 @@
 FROM node:lts-alpine as build-stage
-ENV VUE_APP_API http://localhost/api
+ARG api_host
+ENV VUE_APP_API=${api_host}
 RUN npm i yarn
 WORKDIR /app
 COPY . .
