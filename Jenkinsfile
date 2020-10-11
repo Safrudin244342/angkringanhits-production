@@ -9,7 +9,7 @@ pipeline {
     stage('build project') {
 
       steps {
-        nodejs('npm') {
+        nodejs('yarn') {
           sh 'yarn install'
           echo 'build finish'
         }
