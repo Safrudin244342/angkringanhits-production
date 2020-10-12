@@ -86,7 +86,7 @@ pipeline {
         script {
           sh("docker image rm 244342/angkringanfrontend:${commitHash}")
           sh("docker image rm 244342/angkringanfrontend:${env.GIT_BRANCH}")
-          sh('docker rmi `docker images | grep "<none>" | awk {"print $3"}`')
+          sh('docker rmi `docker images | grep "<none>" | awk {"print $ 3"}`')
         }
       }
 
