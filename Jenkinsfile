@@ -68,7 +68,7 @@ pipeline {
                 verbose: false,
                 transfers: [
                   sshTransfer(
-                    execCommand: "docker pull 244342/angkringanfrontend:${env.GIT_BRANCH}",
+                    execCommand: 'docker pull 244342/angkringanfrontend:${env.GIT_BRANCH} && docker rmi `docker images | grep "<none>" | awk {"print $ 3"}`',
                     execTimeout: 120000
                   )
                 ]
