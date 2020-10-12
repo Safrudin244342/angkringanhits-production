@@ -16,10 +16,12 @@ server {
                 root  /usr/share/nginx/html;
                 index index.html;
                 try_files $uri /$uri /index.html;
+		expires -1;
         }
 
         location /api {
                 proxy_pass http://api;
+		expires -1;
         }
 
 }
