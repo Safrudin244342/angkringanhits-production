@@ -68,7 +68,7 @@ pipeline {
                 verbose: false,
                 transfers: [
                   sshTransfer(
-                    execCommand: "docker-update",
+                    execCommand: "/home/beningproduction/docker/docker-update.sh",
                     execTimeout: 120000
                   )
                 ]
