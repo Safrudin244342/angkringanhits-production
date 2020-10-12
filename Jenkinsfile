@@ -57,8 +57,10 @@ pipeline {
         script {
           if (env.GIT_BRANCH == 'master') {
             server = 'angkringan-production'
+            command = "/home/beningproduction/docker/docker-update.sh"
           } else if (env.GIT_BRANCH == 'dev') {
             server = 'angkringan-dev'
+            command = "/home/beningdev/docker/docker-update.sh"
           }
 
           sshPublisher(
@@ -68,7 +70,7 @@ pipeline {
                 verbose: false,
                 transfers: [
                   sshTransfer(
-                    execCommand: "/home/beningproduction/docker/docker-update.sh",
+                    execCommand: "${command}",
                     execTimeout: 120000
                   )
                 ]
