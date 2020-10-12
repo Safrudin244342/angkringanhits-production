@@ -4,6 +4,11 @@ pipeline {
 
   agent any
 
+  parameters {
+    choice(name: 'CICD', choices: ['CICD', 'CI'], description: 'Pilih salah satu')
+    booleanParam(name: 'RMI', defaultValue: true, description: 'Remove image after build')
+  }
+
   stages {
     
     stage('build project') {
@@ -21,15 +26,15 @@ pipeline {
       steps {
         script {
           if (env.GIT_BRANCH == 'master') {
-            api_host = '100.26.51.189'
+            api_host = 'https://100.26.51.189'
           } else if (env.GIT_BRANCH == 'dev') {
-            api_host = '34.205.68.49'
+            api_host = 'http://34.205.68.49'
           } else {
             api_host = '52.90.170.145'
           }
 
           commitHash = sh (script : "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-          builderDocker = docker.build("244342/angkringanfrontend:${commitHash}", "--build-arg api_host=http://${api_host}/api .")
+          builderDocker = docker.build("244342/angkringanfrontend:${commitHash}", "--build-arg api_host=${api_host}/api .")
         }
       }
 
@@ -49,6 +54,7 @@ pipeline {
       when {
         expression {
           env.GIT_BRANCH == 'dev' || env.GIT_BRANCH == 'master'
+          params.CICD == 'CICD'
         }
       }
 
@@ -83,6 +89,12 @@ pipeline {
     }
 
     stage('remove local images') {
+
+      when {
+        expression {
+          params.RMI
+        }
+      }
       
       steps {
         script {
