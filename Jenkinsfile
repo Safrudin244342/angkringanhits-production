@@ -4,6 +4,11 @@ pipeline {
 
   agent any
 
+  parameters {
+    choice(name: 'CICD', choices: ['CICD', 'CI'], description: 'Pilih salah satu')
+    booleanParam(name: 'RMI', defaultValue: true, description: 'Remove image after build')
+  }
+
   stages {
     
     stage('build project') {
@@ -17,29 +22,36 @@ pipeline {
     }
 
     stage('build docker image') {
+      when {
+        expression {
+          env.GIT_BRANCH == 'dev' || env.GIT_BRANCH == 'master'
+        }
+      }
       
       steps {
         script {
           if (env.GIT_BRANCH == 'master') {
-            api_host = '100.26.51.189'
+            api_host = 'https://3.90.0.218'
           } else if (env.GIT_BRANCH == 'dev') {
-            api_host = '34.205.68.49'
+            api_host = 'http://34.224.67.75'
           } else {
-            api_host = '52.90.170.145'
+            api_host = 'http://34.224.67.75'
           }
 
-          commitHash = sh (script : "git log -n 1 --pretty=format:'%H'", returnStdout: true)
-          builderDocker = docker.build("244342/angkringanfrontend:${commitHash}", "--build-arg api_host=http://${api_host}/api .")
-        }
-      }
-
-    }
-
-    stage('push image') {
-
-      steps {
-        script {
-          builderDocker.push("${env.GIT_BRANCH}")
+          sshPublisher(
+            publishers: [
+              sshPublisherDesc(
+                configName: "ansible-master",
+                verbose: false,
+                transfers: [
+                  sshTransfer(
+                    execCommand: "ansible-playbook ansible/frontend/build.yml -e 'branch=${env.GIT_BRANCH}' -e 'ansible_python_interpreter=/usr/bin/python2.7' -e 'api_host=${api_host}'",
+                    execTimeout: 12000000
+                  )
+                ]
+              )
+            ]
+          )
         }
       }
 
@@ -49,49 +61,39 @@ pipeline {
       when {
         expression {
           env.GIT_BRANCH == 'dev' || env.GIT_BRANCH == 'master'
+          params.CICD == 'CICD'
         }
       }
 
       steps {
         
         script {
+
           if (env.GIT_BRANCH == 'master') {
-            server = 'angkringan-production'
-            command = "/home/beningproduction/docker/docker-update.sh"
+            host = "angkringanstag"
+            port = "8080"
           } else if (env.GIT_BRANCH == 'dev') {
-            server = 'angkringan-dev'
-            command = "/home/beningdev/docker/docker-update.sh"
+            host = "angkringansdev"
+            port = "80"
           }
 
           sshPublisher(
             publishers: [
               sshPublisherDesc(
-                configName: "${server}",
+                configName: "ansible-master",
                 verbose: false,
                 transfers: [
                   sshTransfer(
-                    execCommand: "${command}",
+                    execCommand: "ansible-playbook -i ansible/hosts ansible/frontend/deploy.yml -e 'branch=${env.GIT_BRANCH}' -e 'host=${host}' -e 'port=${port}'",
                     execTimeout: 120000
                   )
                 ]
               )
             ]
           )
-        }
-
-      }
-    }
-
-    stage('remove local images') {
-      
-      steps {
-        script {
-          sh("docker image rm 244342/angkringanfrontend:${commitHash}")
-          sh("docker image rm 244342/angkringanfrontend:${env.GIT_BRANCH}")
-          sh('docker rmi `docker images | grep "<none>" | awk {"print $ 3"}`')
+        
         }
       }
-
     }
 
   }
