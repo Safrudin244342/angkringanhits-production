@@ -73,7 +73,7 @@ pipeline {
             host = "angkringanstag"
             port = "8080"
           } else if (env.GIT_BRANCH == 'dev') {
-            host = "angkringansdev"
+            host = "angkringandev"
             port = "80"
           }
 
