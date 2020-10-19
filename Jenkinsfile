@@ -22,15 +22,20 @@ pipeline {
     }
 
     stage('build docker image') {
+      when {
+        expression {
+          env.GIT_BRANCH == 'dev' || env.GIT_BRANCH == 'master'
+        }
+      }
       
       steps {
         script {
           if (env.GIT_BRANCH == 'master') {
             api_host = 'https://3.90.0.218'
           } else if (env.GIT_BRANCH == 'dev') {
-            api_host = 'https://3.90.0.218'
+            api_host = 'http://34.224.67.75'
           } else {
-            api_host = 'https://3.90.0.218'
+            api_host = 'http://34.224.67.75'
           }
 
           sshPublisher(
@@ -68,8 +73,8 @@ pipeline {
             host = "angkringanstag"
             port = "8080"
           } else if (env.GIT_BRANCH == 'dev') {
-            host = "angkringanstag"
-            port = "8080"
+            host = "angkringansdev"
+            port = "80"
           }
 
           sshPublisher(
