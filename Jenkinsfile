@@ -72,9 +72,11 @@ pipeline {
           if (env.GIT_BRANCH == 'master') {
             host = "angkringanstag"
             port = "8080"
+            tag = "--tag setup"
           } else if (env.GIT_BRANCH == 'dev') {
             host = "angkringandev"
             port = "80"
+            tag = ""
           }
 
           sshPublisher(
@@ -84,7 +86,7 @@ pipeline {
                 verbose: false,
                 transfers: [
                   sshTransfer(
-                    execCommand: "ansible-playbook -i ansible/hosts ansible/frontend/deploy.yml -e 'branch=${env.GIT_BRANCH}' -e 'host=${host}' -e 'port=${port}'",
+                    execCommand: "ansible-playbook -i ansible/hosts ansible/frontend/deploy.yml -e 'branch=${env.GIT_BRANCH}' -e 'host=${host}' -e 'port=${port}' ${tag}",
                     execTimeout: 120000
                   )
                 ]
