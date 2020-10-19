@@ -41,7 +41,7 @@ pipeline {
                 transfers: [
                   sshTransfer(
                     execCommand: "ansible-playbook ansible/frontend/build.yml -e 'branch=${env.GIT_BRANCH}' -e 'ansible_python_interpreter=/usr/bin/python2.7' -e 'api_host=${api_host}'",
-                    execTimeout: 120000
+                    execTimeout: 12000000
                   )
                 ]
               )
